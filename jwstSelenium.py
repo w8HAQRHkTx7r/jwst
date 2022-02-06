@@ -35,6 +35,7 @@ else:
 instruments = {
    'tempWarmSide1C'     : 'Sunshield UPS Average Temperature (hot)',
    'tempWarmSide2C'     : 'Spacecraft Equipment Panel Average Temperature (hot)',
+   
    'tempCoolSide1C'     : 'Primary Mirror Average Temperature (cold)',
    'tempCoolSide2C'     : 'Instrument Radiator Temperature (cold)',
 
