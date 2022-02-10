@@ -61,6 +61,7 @@ def get_temp_of(sensor):
 # of javascript.  A simple wget or curl shows "--" as the temperatures until the javascript
 # executes.
 driver = webdriver.Safari()
+driver.maximize_window()
 driver.get("https://www.jwst.nasa.gov/content/webbLaunch/whereIsWebb.html?units=metric")
 wait = WebDriverWait(driver,10)
 
