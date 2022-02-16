@@ -14,6 +14,7 @@ import pathlib
 import os
 
 priorTempsFile = pathlib.Path.home() / 'jwstTemps.txt'
+priorTemps = ""
 
 # If there's no historical data, make something up
 # NASA only publishes about once per day. The historical data is a csv of
@@ -28,7 +29,6 @@ else:
 # If there is historical data, read it in
 	with priorTempsFile.open( mode='r', encoding="utf-8") as f:
 		priorTemps = f.read()
-		print(f'Prior temps: {priorTemps}')
 		f.close()
 
 # Here are the html names of the sensors
@@ -68,7 +68,6 @@ wait = WebDriverWait(driver,10)
 currentTemps = ''
 
 # Get each sensor's current reading
-print("Current Temps:")
 for index, sensor in enumerate(instruments):
 	newReadings[sensor] = get_temp_of(sensor)
 	# Build a csv of current temps
@@ -78,6 +77,8 @@ for index, sensor in enumerate(instruments):
 # Have any values changed? If so, send them to Adafruit
 if currentTemps != priorTemps:
 	print("I've detected a temperature change")
+	print(f'Prior temps: {priorTemps}')
+	print(f'Current temps: {currentTemps}')
 	aio = Client(LCMUSERNAME, LCMKEY)
 	for index, feed in enumerate(newReadings):
 		try:
@@ -92,6 +93,8 @@ if currentTemps != priorTemps:
 			print(f'Failure to send {newReadings[feed]} to {feed}') 
 else:
 	print("There is no change in temperature")
+	print(f'Prior temps: {priorTemps}')
+	print(f'Current temps: {currentTemps}')
 
 # Write the current temp csv to the history file
 if os.path.exists(priorTempsFile):
